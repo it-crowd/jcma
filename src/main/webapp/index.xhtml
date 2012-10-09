@@ -6,20 +6,19 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3">
+
                 <h:outputLabel value="email" for="email"/>
-                <h:inputText id="email" value="#{registrationView.user.email}" required="true" validator="#{registrationView.validateEmail}"/>
+                <h:inputText id="email" value="#{registrationView.user.email}"/>
                 <h:message for="email"/>
 
                 <h:outputLabel value="birth date (yyyy-MM-dd)" for="birthDate"/>
-                <h:inputText id="birthDate" value="#{registrationView.user.birthDate}" required="true">
+                <h:inputText id="birthDate" value="#{registrationView.user.birthDate}">
                     <f:convertDateTime pattern="yyyy-MM-dd"/>
                 </h:inputText>
                 <h:message for="birthDate"/>
 
                 <h:outputLabel value="lucky number (1-9)" for="luckyNumber"/>
-                <h:inputText id="luckyNumber" value="#{registrationView.user.luckyNumber}">
-                    <f:validateLongRange minimum="1" maximum="9"/>
-                </h:inputText>
+                <h:inputText id="luckyNumber" value="#{registrationView.user.luckyNumber}"/>
                 <h:message for="luckyNumber"/>
 
                 <h:outputLabel value="password" for="password"/>
@@ -27,7 +26,7 @@
                 <h:message for="password"/>
 
                 <h:outputLabel value="country" for="country"/>
-                <h:selectOneRadio id="country" value="#{registrationView.user.country}" required="true" converter="#{registrationView.countryConverter}">
+                <h:selectOneRadio id="country" value="#{registrationView.user.country}" converter="#{registrationView.countryConverter}">
                     <f:selectItems value="#{registrationView.availableCountries}" var="c" itemValue="#{c}" itemLabel="#{c.name}"/>
                 </h:selectOneRadio>
                 <h:message for="country"/>

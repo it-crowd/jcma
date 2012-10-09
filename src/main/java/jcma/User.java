@@ -1,17 +1,30 @@
 package jcma;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
 // ------------------------------ FIELDS ------------------------------
 
+    @NotNull
     private Date birthDate;
 
+    @NotNull
     private Country country;
 
+    @Email
+    @Size(min = 3)
+    @NotNull
     private String email;
 
+    @Min(1)
+    @Max(9)
     private int luckyNumber;
 
     private String passwordDigest;
