@@ -26,6 +26,12 @@
                 <h:inputText id="password" value="#{registrationView.password}"/>
                 <h:message for="password"/>
 
+                <h:outputLabel value="country" for="country"/>
+                <h:selectOneRadio id="country" value="#{registrationView.user.country}" required="true" converter="#{registrationView.countryConverter}">
+                    <f:selectItems value="#{registrationView.availableCountries}" var="c" itemValue="#{c}" itemLabel="#{c.name}"/>
+                </h:selectOneRadio>
+                <h:message for="country"/>
+
                 <h:outputText/>
                 <h:commandButton value="Register" action="#{registrationView.register}"/>
             </h:panelGrid>

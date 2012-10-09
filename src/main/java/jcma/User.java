@@ -8,6 +8,8 @@ public class User implements Serializable {
 
     private Date birthDate;
 
+    private Country country;
+
     private String email;
 
     private int luckyNumber;
@@ -24,6 +26,16 @@ public class User implements Serializable {
     public void setBirthDate(Date birthDate)
     {
         this.birthDate = birthDate;
+    }
+
+    public Country getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(Country country)
+    {
+        this.country = country;
     }
 
     public String getEmail()
@@ -63,6 +75,7 @@ public class User implements Serializable {
     {
         return "User{" +
             "birthDate=" + birthDate +
+            ", country=" + country +
             ", email='" + email + '\'' +
             ", luckyNumber=" + luckyNumber +
             ", passwordDigest='" + passwordDigest + '\'' +

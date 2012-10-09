@@ -2,13 +2,17 @@ package jcma;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.validator.ValidatorException;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @ViewScoped
@@ -16,11 +20,31 @@ import java.util.regex.Pattern;
 public class RegistrationView implements Serializable {
 // ------------------------------ FIELDS ------------------------------
 
+    private Converter countryConverter = new Converter() {
+        public Object getAsObject(FacesContext context, UIComponent component, String value)
+        {
+            return countryDAO.getCountryById(value);
+        }
+
+        public String getAsString(FacesContext context, UIComponent component, Object value)
+        {
+            return value == null ? null : ((Country) value).getId();
+        }
+    };
+
+    @ManagedProperty("#{countryDAO}")
+    private CountryDAO countryDAO;
+
     private String password;
 
     private User user = new User();
 
 // --------------------- GETTER / SETTER METHODS ---------------------
+
+    public Converter getCountryConverter()
+    {
+        return countryConverter;
+    }
 
     public String getPassword()
     {
@@ -37,7 +61,17 @@ public class RegistrationView implements Serializable {
         return user;
     }
 
+    public void setCountryDAO(CountryDAO countryDAO)
+    {
+        this.countryDAO = countryDAO;
+    }
+
 // -------------------------- OTHER METHODS --------------------------
+
+    public List<Country> getAvailableCountries()
+    {
+        return new ArrayList<Country>(countryDAO.getCountries());
+    }
 
     public void register() throws NoSuchAlgorithmException
     {
