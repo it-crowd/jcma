@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xml:lang="en" lang="en">
+<h:head>
+    <title>#{empty pageTitle ? 'Simple facelets' : pageTitle}</title>
+    <link rel="stylesheet" href="style.css"/>
+</h:head>
+<h:body>
+
+    <h:panelGrid columns="1" cellpadding="5">
+        <h:link outcome="registration" value="* Register form" styleClass="#{activeTab=='registration' ? 'active' : ''}"/>
+        <h:link outcome="filterTable" value="* Table with filtering" styleClass="#{activeTab=='filterTable' ? 'active' : ''}"/>        
+        <h:link outcome="index" value="Index" styleClass="#{activeTab=='index' ? 'active' : ''}"/>
+        <h:link outcome="about" value="About" styleClass="#{activeTab=='about' ? 'active' : ''}"/>
+        <h:link outcome="login" value="Login" styleClass="#{activeTab=='login' ? 'active' : ''}"/>
+        
+    </h:panelGrid>
+
+    <ui:insert name="content"/>
+</h:body>
+</html>
