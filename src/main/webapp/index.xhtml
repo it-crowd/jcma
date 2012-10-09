@@ -7,7 +7,7 @@
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel value="email" for="email"/>
-                <h:inputText id="email" value="#{registrationView.user.email}" required="true"/>
+                <h:inputText id="email" value="#{registrationView.user.email}" required="true" validator="#{registrationView.validateEmail}"/>
                 <h:message for="email"/>
 
                 <h:outputLabel value="birth date" for="birthDate"/>
