@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:s="urn:java:ee" xmlns:persistence="urn:java:org.jboss.seam.persistence"
+       xmlns:solder-exception="urn:java:org.jboss.solder.exception.control" xmlns:pf-converter="urn:java:pl.com.it_crowd.seam.framework.converter"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://jboss.org/schema/cdi/beans_1_0.xsd">
+
+    <solder-exception:ExceptionHandlerDispatch>
+        <s:modifies/>
+        <s:SessionScoped/>
+    </solder-exception:ExceptionHandlerDispatch>
+
+    <pf-converter:EntityConverter>
+        <pf-converter:entityManager>
+            <s:Inject/>
+        </pf-converter:entityManager>
+        <s:modifies/>
+    </pf-converter:EntityConverter>
+
+    <persistence:FlushModeManagerImpl>
+        <persistence:flushModeType>MANUAL</persistence:flushModeType>
+    </persistence:FlushModeManagerImpl>
+
+</beans>

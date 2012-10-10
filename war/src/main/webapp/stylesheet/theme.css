@@ -1,0 +1,70 @@
+/** general */
+.middleContent * {
+    vertical-align: middle;
+}
+
+.rf-pp-hdr-cnt .close {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
+.rf-tb a {
+    color: #fff;
+}
+
+.rf-ntf-pos-tr {
+    right: 200px;
+}
+
+.menu {
+    margin-bottom: 50px;
+}
+
+.menu a {
+    display: inline-block;
+    list-style: none;
+    background-color: #005000;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.menu a + a {
+    margin-left: 1px;
+}
+
+table.ck1 th:first-child, table.ck1 td:first-child {
+    width: 20px;
+    text-align: center;
+}
+
+.rf-dt {
+    width: 100%;
+}
+
+.verticalSpace {
+    margin-top: 50px;
+}
+
+.watermark {
+    color: #aaa;
+}
+
+/** /resources/components/edit.xhtml */
+.prop .label {
+    display: inline-block;
+    width: 200px;
+}
+
+/** /resources/components/editVertical.xhtml */
+.propVertical .label {
+    display: block;
+}
+
+/** /view/private/admin/ensembles.xhtml */
+.adminEnsembles .membershipControls {
+    text-align: center;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:focus="http://richfaces.org/sandbox/focus" xmlns:accesskeyhelper="http://richfaces.org/sandbox/accesskeyhelper">
+<f:view locale="#{localeSelector.selectedLocale}">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+        <ui:insert name="head"/>
+    </h:head>
+    <!--@elvariable id="bodyStyleClass" type="java.lang.String"-->
+    <h:body styleClass="#{bodyStyleClass}">
+        <link href="#{request.contextPath}/stylesheet/theme.css" rel="stylesheet" type="text/css"/>
+
+        <!--@elvariable id="showGlobalMessages" type="java.lang.String"-->
+        <rich:notifyMessages ajaxRendered="true" id="messages" globalOnly="true" showHistory="true" rendered="#{showGlobalMessages != 'false'}"/>
+        <accesskeyhelper:accesskeyhelper/>
+
+        <a4j:poll interval="180000"/>
+
+        <!--@elvariable id="hideLoginPopup" type="java.lang.String"-->
+        <rich:toolbar id="tb">
+            <rich:toolbarGroup location="right">
+                <!--lR=loginREgister-->
+                <h:outputLink id="lR" value="#" rendered="#{not identity.loggedIn and hideLoginPopup!='true'}">
+                    #{messages['layout.template.toolbar.loginRegister']}
+                </h:outputLink>
+                <!--lOF=logOutForm-->
+                <h:form id="lOF">
+                    <h:commandLink id="logout" value="#{messages['layout.template.toolbar.logout']}" action="#{identity.logout}"
+                                   rendered="#{identity.loggedIn}"/>
+                </h:form>
+            </rich:toolbarGroup>
+        </rich:toolbar>
+        <!--lP=loginPanel-->
+        <rich:popupPanel id="lP" autosized="true" modal="false" moveable="false" resizeable="false" followByScroll="false"
+                         rendered="#{not identity.loggedIn and hideLoginPopup!='true'}">
+            <!--pLF=popupLoginForm-->
+            <h:form id="pLF">
+                <focus:focus/>
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="#{messages['layout.template.loginPanel.loginOrEmail']}" for="e"/>
+                    <h:inputText id="e" value="#{credentials.username}" required="true" accesskey="e"
+                                 requiredMessage="#{messages['layout.template.loginPanel.loginOrEmail.required']}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="e"/>
+                    <rich:notifyMessage for="e"/>
+                    <h:outputLabel value="#{messages['layout.template.loginPanel.password']}" for="p"/>
+                    <h:inputText id="p" value="#{credentials.password}" required="true"
+                                 requiredMessage="#{messages['layout.template.loginPanel.password.required']}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="p"/>
+                    <rich:notifyMessage for="p"/>
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="#{messages['layout.template.loginPanel.login']}" action="#{identity.login}" accesskey="l"/>
+                        <a4j:commandButton value="#{messages['layout.template.loginPanel.register']}" action="#{registerView.register}" immediate="true"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+        </rich:popupPanel>
+        <h:panelGroup rendered="#{not identity.loggedIn and hideLoginPopup!='true'}">
+            <script type="text/javascript">
+                jQuery(function ()
+                {
+                    var loginPanel = #{rich:component('lP')};
+                    var initialLoginPanelWidth = loginPanel.width();
+
+                    var toolBar = jQuery(#{rich:element('tb')});
+                    var anchor = jQuery(#{rich:element('lR')});
+
+                    var hideLoginPanelTimeoutId;
+
+                    function hideLoginPanel(event)
+                    {
+                        hideLoginPanelTimeoutId = setTimeout(function ()
+                        {
+                            loginPanel.hide(event);
+                        }, 2000);
+                    }
+
+                    function showModalPanel(event)
+                    {
+                        if (hideLoginPanelTimeoutId != null) {
+                            clearTimeout(hideLoginPanelTimeoutId);
+                            hideLoginPanelTimeoutId = null;
+                        }
+                        var top = toolBar.offset().top + toolBar.height();
+                        var left = toolBar.offset().left + toolBar.width() - initialLoginPanelWidth;
+                        loginPanel.show(event, {top:top, left:left});
+                    }
+
+                    jQuery(anchor).add(loginPanel._contentElement).mouseover(showModalPanel).mouseout(hideLoginPanel);
+
+                });
+            </script>
+        </h:panelGroup>
+
+        <ui:insert name="body"/>
+    </h:body>
+</f:view>
+</html>
