@@ -1,7 +1,7 @@
 package jcma;
 
 import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
-@ManagedBean
-public class CountryDAO {
+//TODO try without Serializable and see what happens during deployment
+public class CountryDAO implements Serializable {
 // ------------------------------ FIELDS ------------------------------
 
     private final Map<String, Country> countries = new HashMap<String, Country>();

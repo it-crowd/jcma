@@ -1,12 +1,12 @@
 package jcma;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -15,8 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-@ViewScoped
-@ManagedBean
+@Named
+@SessionScoped
 public class RegistrationView implements Serializable {
 // ------------------------------ FIELDS ------------------------------
 
@@ -34,7 +34,7 @@ public class RegistrationView implements Serializable {
         }
     };
 
-    @ManagedProperty("#{countryDAO}")
+    @Inject
     private CountryDAO countryDAO;
 
     @NotNull
@@ -68,11 +68,6 @@ public class RegistrationView implements Serializable {
     public boolean isConfirmationPanelVisible()
     {
         return confirmationPanelVisible;
-    }
-
-    public void setCountryDAO(CountryDAO countryDAO)
-    {
-        this.countryDAO = countryDAO;
     }
 
 // -------------------------- OTHER METHODS --------------------------
