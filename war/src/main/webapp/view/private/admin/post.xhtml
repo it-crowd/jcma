@@ -1,0 +1,22 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:cu="http://java.sun.com/jsf/composite/components" xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core"
+                template="/layout/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{postDetailsView.id}" converter="javax.faces.Long"/>
+    </f:metadata>
+    <ui:define name="body">
+
+        <h:form>
+            <cu:edit id="title" label="Title">
+                <h:inputText id="i" value="#{postDetailsView.post.title}"/>
+            </cu:edit>
+            <cu:edit id="content" label="Content">
+                <rich:editor id="i" value="#{postDetailsView.post.content}"/>
+            </cu:edit>
+            <h:commandButton value="Save" action="#{postDetailsView.save}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

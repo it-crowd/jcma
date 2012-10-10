@@ -35,4 +35,13 @@
             <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/view/private/admin/post.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/view/private/admin/postList.xhtml</to-view-id>
+            <from-action>#{postDetailsView.save}</from-action>
+            <from-outcome>success</from-outcome>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
