@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="template.xhtml">
+        <ui:param name="activeTab" value="filterTable"/>
+        <ui:define name="content" >
+
+            <br/>
+            <br/>
+            <h:link outcome="registration" value="Do you want more users in table? Register new!"/>
+            <br/>
+            <br/>
+            <h:form>
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputText value="Number of users to display"/>
+                    <h:inputText value="#{filterTableBacking.numberOfResults}"></h:inputText>
+                    <h:commandButton value="Show" action="#{filterTableBacking.numberOfResultsChange()}"/>
+                </h:panelGrid>
+            </h:form>
+
+            <h:form>
+                <h:dataTable id="filterTable"
+                             value="#{filterTableBacking.users}"
+                             var="user">
+                    <f:facet name="caption">
+                        <h:outputText value="List of #{filterTableBacking.users.size()} users"/>
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Login"/><br/>
+                            <h:inputText id="filterLogin" 
+                                         value="#{filterTableBacking.filterLogin}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterLogin" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByLoginListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.login}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Password"/><br/>
+                            <h:inputText id="filterPassword" 
+                                         value="#{filterTableBacking.filterPassword}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterPassword" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByPasswordListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.password}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="First name"/><br/>
+                            <h:inputText id="filterFname" 
+                                         value="#{filterTableBacking.filterfirstName}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterFname" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByFirstNameListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.firstName}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Last name"/><br/>
+                            <h:inputText id="filterLname" 
+                                         value="#{filterTableBacking.filterlastName}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterLname" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByLastNameListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.lastName}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Last name"/><br/>
+                            <h:inputText id="filterBDate" 
+                                         value="#{filterTableBacking.filterbirthDate}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterBDate" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByBirthDateListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.birthDate}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Gender"/><br/>
+                            <h:selectOneMenu id="filterGender" 
+                                             value="#{filterTableBacking.filtergender}">
+                                <f:selectItem itemLabel="Man" itemValue="MAN"/>
+                                <f:selectItem itemLabel="Woman" itemValue="WOMAN"/>
+                                <f:ajax event="valueChange" 
+                                        execute="filterGender" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByGenderListener()}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                        #{user.gender}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="About"/><br/>
+                            <h:inputText id="filterAbout" 
+                                         value="#{filterTableBacking.filteraboutText}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterAbout" 
+                                        render="filterTable"
+                                        listener="#{filterTableBacking.filterByAboutListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.aboutText}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/><br/>
+                            <h:inputText id="filterEmail" 
+                                         value="#{filterTableBacking.filteremail}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterEmail" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByEmailListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        #{user.email}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Friends"/><br/>
+                            <h:inputText id="filterFriends" 
+                                         value="#{filterTableBacking.filterfriends}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterFriends" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByFriendsListener()}"/>
+                            </h:inputText>
+                        </f:facet>
+                        <h:dataTable value="#{user.friends}" var="fr">
+                            <h:column>
+                                #{fr}
+                            </h:column>
+                        </h:dataTable>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Want newsletter?"/><br/>
+                            <h:selectBooleanCheckbox id="filterNews" 
+                                                     value="#{filterTableBacking.filterwantNewsletter}">
+                                <f:ajax event="valueChange" 
+                                        execute="filterNews" 
+                                        render="filterTable" 
+                                        listener="#{filterTableBacking.filterByNewsListener()}"/>
+                            </h:selectBooleanCheckbox>
+                        </f:facet>
+                        <h:outputText value="Newsletter ordered: " />
+                        <h:outputText value="YES" rendered="#{user.wantNewsletter}"/>
+                        <h:outputText value="NO" rendered="#{not user.wantNewsletter}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>    
+
+
+</html>
+

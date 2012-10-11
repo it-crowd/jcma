@@ -1,6 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
 <head/>
 <body>
 
@@ -8,14 +9,24 @@ Everybody, look! This text will not be included!
 
 <ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
 
-    <h:form>
+    <h:form rendered="#{!loginBean.loggedIn}">
         <h:panelGrid columns="2">
-            <h:outputLabel value="Email" for="email"/>
-            <h:inputText id="email"/>
+            <h:outputLabel value="login" for="email"/>
+            <h:inputText id="email" value="#{loginBean.login}" required="true" requiredMessage="Login required"/>
             <h:outputLabel value="Password" for="password"/>
-            <h:inputSecret id="password"/>
-            <h:commandButton value="Login"/>
+            <h:inputSecret id="password" value="#{loginBean.password}" required="true" requiredMessage="Password required"/>
+            <h:commandButton value="Login" action="#{loginBean.checkLogin()}"/>
+            <h:messages id="msg" showDetail="true" />
         </h:panelGrid>
+    </h:form>
+    
+    <h:outputText id="greeting" value="Hello #{loginBean.loggedUser.firstName} !"
+                  rendered="#{loginBean.loggedIn}"/>
+    <br/>
+    <h:link value="Try restricted page to test PhaseListener" outcome="admin"/>
+    
+    <h:form rendered="#{loginBean.loggedIn}">
+        <h:commandButton value="Log out!" action="#{loginBean.logOut()}"/>
     </h:form>
 
 </ui:component>
