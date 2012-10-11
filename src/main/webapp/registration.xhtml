@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="template.xhtml">
+        
+        <ui:param name="activeTab" value="registration"/>
+        <ui:define name="content">
+            
+            <br/>
+            <h:outputText value="Currently registered #{appUserRepository.allUsers.size()} users." />
+        
+        <h:form>
+            
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="fNameField" value="First Name"/>
+                <h:inputText id="fNameField" 
+                             value="#{registrationBacking.newUser.firstName}"
+                             required="true"
+                             requiredMessage="Please fill first name!"/>
+                <h:message for="fNameField" showDetail="true"/>
+                
+                <h:outputLabel for="lNameField" value="Last name"/>
+                <h:inputText id="lNameField" 
+                             value="#{registrationBacking.newUser.lastName}"
+                             required="true"
+                             requiredMessage="Please fill last name!"/>
+                <h:message for="lNameField" showDetail="true"/>
+                
+                <h:outputLabel for="loginField" value="Login"/>
+                <h:inputText id="loginField" 
+                             value="#{registrationBacking.newUser.login}"
+                             required="true"
+                             requiredMessage="Please fill login"/>
+                <h:message for="loginField" showDetail="true"/>
+                
+                <h:outputLabel for="passwordField" value="Password"/>
+                <h:inputSecret id="passwordField" 
+                               value="#{registrationBacking.newUser.password}"
+                               required="true"
+                               requiredMessage="Please fill password"/>
+                <h:message for="passwordField" showDetail="true"/>
+                
+                <h:outputLabel for="aboutArea" value="Few words about you"/>
+                <h:inputTextarea id="aboutArea" 
+                                 value="#{registrationBacking.newUser.aboutText}"
+                                 cols="25"/>
+                <h:message for="aboutArea" showDetail="true"/>
+                
+                <h:outputLabel for="birthDate" value="Your birth date in format DD-MM-YY"/>
+                <h:inputText id="birthDate" value="#{registrationBacking.newUser.birthDate}">
+                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                </h:inputText>
+                <h:message for="birthDate" showDetail="true"/>
+                
+                <h:outputLabel for="genderRadio" value="Choose gender:"/>
+                <h:selectOneRadio id="genderRadio" value="#{registrationBacking.newUser.gender}">
+                    <f:selectItem itemLabel="Man" itemValue="MAN"/>
+                    <f:selectItem itemLabel="Woman" itemValue="WOMAN"/>
+                </h:selectOneRadio>
+                <h:message for="genderRadio" showDetail="true"/>
+                
+                <h:outputLabel for="wantNewsletterChk" value="Do you want newsletter?"/>
+                <h:selectBooleanCheckbox id="wantNewsletterChk"
+                                         value="#{registrationBacking.newUser.wantNewsletter}"/>
+                <h:message for="wantNewsletterChk" showDetail="true"/>
+
+                <h:outputLabel for="emailField" value="Your email"/>
+                <h:inputText id="emailField" value="#{registrationBacking.newUser.email}"/>
+                <h:message for="emailField" showDetail="true"/>
+                
+                <h:outputLabel for="selectFriends" value="Do you know someone from this list?"/>
+                <h:selectManyListbox id="selectFriends" 
+                                     value="#{registrationBacking.newUser.friends}"
+                                     rendered="#{not registrationBacking.mayBeFriends.isEmpty()}">
+                    <f:selectItems value="#{registrationBacking.mayBeFriends}"
+                                   var="friend"
+                                   itemLabel="#{friend.firstName} #{friend.lastName}"
+                                   itemValue="#{friend.firstName} #{friend.lastName}"/>
+                </h:selectManyListbox>
+                
+                
+                
+                
+                <h:outputLabel for="registerBtn" value=""/>
+                <h:commandButton id="registerBtn"
+                    value="Register!"
+                    action="#{registrationBacking.registerAction()}"/>
+                
+            </h:panelGrid>
+            
+        </h:form>
+        
+        </ui:define>
+     </ui:composition>   
+</html>
+
+
