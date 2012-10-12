@@ -96,6 +96,7 @@ public class RegistrationView implements Serializable {
 
     public void register() throws NoSuchAlgorithmException
     {
+        confirmationPanelVisible=false;
         final MessageDigest md5 = MessageDigest.getInstance("MD5");
         user.setPasswordDigest(new String(md5.digest(password.getBytes())));
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User has been successfully registered: " + user));

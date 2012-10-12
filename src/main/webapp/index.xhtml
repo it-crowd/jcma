@@ -7,7 +7,7 @@
         <h:form>
             <rich:panel>
                 <f:facet name="header">Registration form</f:facet>
-                <h:panelGrid columns="3">
+                <h:panelGrid id="regGrid" columns="3">
 
                     <h:outputLabel value="email" for="email"/>
                     <h:inputText id="email" value="#{registrationView.user.email}">
@@ -45,9 +45,28 @@
                     <rich:message id="countryMessage" for="country" ajaxRendered="false"/>
 
                     <h:outputText/>
-                    <h:commandButton value="Register" action="#{registrationView.register}"/>
-                    <h:commandButton value="Cancel" action="#{registrationView.cancel}" immediate="true"/>
+                    <a4j:commandButton value="Register" action="#{registrationView.register}" render="regGrid"/>
+                    <a4j:commandButton value="Cancel" actionListener="#{registrationView.cancel()}" immediate="true"
+                                     render="savePopup"/>
                 </h:panelGrid>
+                
+                <rich:popupPanel id="savePopup" 
+                                 modal="true" 
+                                 autosized="true" 
+                                 resizeable="false" 
+                                 show="#{registrationView.confirmationPanelVisible}">
+                    <f:facet name="header">Cancel?</f:facet>
+                    <h:outputText value="Do you really want to cancel form?"/><br/>
+                    <a4j:commandButton value="Save changes" 
+                                       actionListener="#{registrationView.register()}"
+                                       oncomplete="#{rich:component('savePopup')}.hide(); return false;"
+                                       render="regGrid"/>
+                    <a4j:commandButton value="Don't save" 
+                                       actionListener="#{registrationView.proceedWithoutSave()}"
+                                       oncomplete="#{rich:component('savePopup')}.hide(); return false;"
+                                       render="regGrid"
+                                       immediate="true"/>
+                </rich:popupPanel>
 
                 <a4j:outputPanel ajaxRendered="true">
                     <h:panelGrid id="preview" columns="2">
