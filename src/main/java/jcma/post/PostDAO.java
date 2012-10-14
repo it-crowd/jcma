@@ -53,4 +53,18 @@ public class PostDAO {
             .createQuery();
         return fullTextEntityManager.createFullTextQuery(fullTextQuery, Post.class).getResultList();
     }
+
+    public List<Post> getPostsRange(Integer start, Integer end) {
+        return (List<Post>) entityManager.createQuery("SELECT p FROM Post p").setFirstResult(start).setMaxResults(end-start).getResultList();
+    }
+
+    public Long getPostCount() {
+        return (Long) entityManager.createQuery("SELECT count(p) FROM Post p").getSingleResult();
+    }
+
+    public List<Post> getPostPage(Integer pageNo, Integer pageSize){
+        Integer start = pageSize * (pageNo - 1);
+        Integer end = start + pageSize;
+        return this.getPostsRange(start, end);
+    }
 }

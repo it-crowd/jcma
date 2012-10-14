@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="posts"></div>
+<div id="pages"></div>
 <hr/>
 <form id="addPost">
     <label for="title">Title</label>
@@ -21,12 +22,17 @@
     <input type="button" id="add" value="Add"/>
 </form>
 <script type="text/javascript">
-    function removePost(id)
-    {
+    var currentPage = 1;
+    var pageSize = 3;
+    var postCounter = 0;
+    var maxPage = 1;
+
+    function removePost(id) {
         jQuery.ajax("api/post/" + id, {complete:reloadPosts, type:"DELETE"});
     }
-    function loadPosts(data)
-    {
+    function loadPosts(data) {
+        reloadPostCounter();
+
         var posts = jQuery("#posts");
         posts.empty();
         for (var i = 0; i < data.length; i++) {
@@ -36,27 +42,72 @@
             post.append("<a href='#' onclick='removePost(" + data[i].id + ")'>Remove</a>");
             posts.append(post);
         }
+
+        var pages = jQuery("#pages");
+        pages.empty();
+        var page = jQuery("<div></div>");
+        page.append("<br/><br/><a href='#' onclick='pageDown()'>Page down</a>");
+        page.append("     >>> Current page:" + currentPage + "(with pageSize=" + pageSize + ") <<<    ");
+        page.append("<a href='#' onclick='pageUp()'>Page up</a>");
+        pages.append(page);
+
+
+        console.log("cp:" + currentPage + ", pageSize:" + pageSize + ", postCounter:" + postCounter + ", maxPage:" + maxPage);
     }
-    function reloadPosts()
-    {
-        jQuery.ajax("api/post/list?responseType=application/json-in-script&methodName=loadPosts", {complete:function (xhr, status)
-        {
+
+    function loadPostCounter(data) {
+        postCounter = data;
+        maxPage = Math.ceil(postCounter / pageSize);
+    }
+
+    function pageUp() {
+        if (maxPage != 0) {
+            if (currentPage < maxPage) {
+                currentPage = currentPage + 1;
+            }
+            reloadPosts();
+        }
+
+    }
+
+    function pageDown() {
+        if (maxPage != 0) {
+            if (currentPage > 1) {
+                currentPage = currentPage - 1;
+            }
+            reloadPosts();
+        }
+    }
+    function reloadPosts() {
+        //jQuery.ajax("api/post/list?responseType=application/json-in-script&methodName=loadPosts", {complete:function (xhr, status)
+        var address = "api/post/page/" + currentPage + "/" + pageSize + "?responseType=application/json-in-script&methodName=loadPosts";
+        jQuery.ajax(address, {complete:function (xhr, status) {
             if (status != "error") {
                 eval(xhr.responseText);
             }
         }});
-    }//    Setup
-    jQuery(function ()
-    {
+    }
+
+    function reloadPostCounter() {
+        jQuery.ajax("api/post/totalNumber?responseType=application/json-in-script&methodName=loadPostCounter", {
+            complete:function (xhr, status) {
+                if (status != "error") {
+                    eval(xhr.responseText);
+                }
+            }});
+    }
+
+    //    Setup
+    jQuery(function () {
         var form = jQuery("form#addPost");
-        jQuery("#add", form).click(function ()
-        {
+        jQuery("#add", form).click(function () {
             var title = jQuery("#title", form).val();
             var content = jQuery("#content", form).val();
             jQuery.ajax("api/post/add", {complete:reloadPosts, data:{title:title, content:content}});
         });
     });
 </script>
-<script type="text/javascript" src="api/post/list?responseType=application/json-in-script&methodName=loadPosts"></script>
+<script type="text/javascript"
+        src="api/post/page/1/3?responseType=application/json-in-script&methodName=loadPosts"></script>
 </body>
 </html>

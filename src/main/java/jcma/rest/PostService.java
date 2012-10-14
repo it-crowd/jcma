@@ -13,7 +13,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import java.awt.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Path("/post")
 public class PostService {
@@ -80,5 +84,39 @@ public class PostService {
     private User getCurrentUser()
     {
         return userDao.getUsers().get(0);
+    }
+
+    @GET
+    @Wrapped(element = "posts")
+    @Produces("application/xml")
+    @Path("/range/{start}-{end}")
+    public List<Post> getPostsInRange(@PathParam(value = "start") Integer start, @PathParam(value = "end") Integer end){
+        return postDAO.getPostsRange(start-1, end);
+    }
+
+    @GET
+    @Wrapped(element = "posts")
+    @Produces("application/xml")
+    @Path("/page/{pageNo}/{pageSize}")
+    public List<Post> getPostPageAsXml(@PathParam(value = "pageNo") Integer pageNo,
+                                  @PathParam(value = "pageSize") Integer pageSize){
+        return postDAO.getPostPage(pageNo, pageSize);
+    }
+
+    @GET
+    @Produces({"application/json", "application/json-in-script"})
+    @Path("/page/{pageNo}/{pageSize}")
+    public List<Post> getPostPage(@PathParam(value = "pageNo") Integer pageNo,
+                                  @PathParam(value = "pageSize") Integer pageSize){
+
+        return postDAO.getPostPage(pageNo, pageSize);
+    }
+
+    @GET
+    @Wrapped(element="total")
+    @Produces({"application/json", "application/json-in-script"})
+    @Path("/totalNumber")
+    public Long getPostCount(){
+        return postDAO.getPostCount();
     }
 }
