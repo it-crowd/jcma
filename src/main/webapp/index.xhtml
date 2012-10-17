@@ -4,16 +4,22 @@
                 template="/template.xhtml">
 
     <ui:define name="content">
-        <h1>Hi this is index page</h1>
+        <h1>#{loggingBean.welcomeMsg}</h1>
+        <h:form rendered="#{loggingBean.loggedIn}">
+            <h:commandButton action="#{loggingBean.logout()}" value="logout"/>
+        </h:form>
 
-        <h:form rendered="#{bean.formVisible}">
-            <h:inputText value="#{bean.name}" required="true"/>
-            <h:commandButton value="Say Hi" action="#{bean.sayHi}"/>
+        <h:form rendered="#{not loggingBean.loggedIn}">
+            <h:inputText value="#{loggingBean.login}" required="true"/>
+            <h:inputText value="#{loggingBean.pass}" required="true"/>
+            <h:commandButton value="log me in" action="#{loggingBean.loginAction}"/>
             <h:messages/>
             <pre>
                 <h:outputText value="#{loggingBean.log}"/>
             </pre>
         </h:form>
+        
+        <h:link outcome="admin" rendered="#{loggingBean.loggedIn}">Test security!</h:link>
     </ui:define>
 
 </ui:composition>
