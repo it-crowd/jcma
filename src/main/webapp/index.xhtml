@@ -17,7 +17,7 @@
 
                     <h:outputLabel value="birth date (yyyy-MM-dd)" for="birthDate"/>
                     <rich:calendar id="birthDate" value="#{registrationView.user.birthDate}" enableManualInput="true" datePattern="yyyy-MM-dd">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        <!--<f:convertDateTime pattern="yyyy-MM-dd"/>-->
                         <a4j:ajax render="birthDateMessage"/>
                     </rich:calendar>
                     <rich:message id="birthDateMessage" for="birthDate" ajaxRendered="false"/>
