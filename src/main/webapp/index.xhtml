@@ -1,12 +1,60 @@
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" template="/template.xhtml">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p>please to sign all cels:</p>
+            <table>
+                <tr>
+                    <td>name?:</td>     
+                    <td> <h:inputText id="inputName" value="#{user.name}" size="20"/>  </td>    
+                </tr>
+                <tr>
+                    <td>second name?:   </td>
+                    <td><h:inputText id="inputSName" value="#{user.nname}" size="20"/> </td> 
 
-    <ui:param name="activeTab" value="index"/>
+                </tr>
 
-    <ui:define name="content">
-        <h1>Hi this is index page</h1>
-        <ui:include src="loginPanelFragment.xhtml"/>
-    </ui:define>
+                <tr>
+                    
+                    <td>em@il?: </td>  
+                    <td><h:inputText id="inputEmail" value="#{user.email}"/></td>  
+                    <f:ajax event="keyup" execute="inputEmail" render="outputEmail"/>
+                    <td><h:outputText id="outputEmail" value="#{user.email}"/>    </td>
+                </tr> 
 
-</ui:composition>
+                <tr>
+                    <td>login?:</td>    
+                    <td><h:inputText id="inputLogin" value="#{user.login}" required="true" requiredMessage="you need to sign before you go futher"/>      </td> 
+
+                </tr>
+
+                <tr>
+                    <td>password?:</td> <td><h:inputSecret id="inputPass" value="#{user.password}"/>     </td> <td></td> <td></td>
+                </tr>
+
+                <tr>
+                    <td>sex?:</td> <td><h:selectOneMenu id="inputSex" value="#{user.sex}"> 
+                            <f:selectItem itemLabel="men" itemValue="men"/>
+                            <f:selectItem itemLabel="women" itemValue="women"/> 
+
+                        </h:selectOneMenu> </td>
+                </tr>
+
+
+                <tr>
+                    <td>few words about US</td><td> <h:inputTextarea id="inputfwaus" value="#{user.fwaus}"/> </td>        
+                </tr>
+            </table>
+
+            <h:commandButton id="button" value="submmit" action="indexCD"/>
+
+
+        </h:form>
+    </h:body>
+</html>

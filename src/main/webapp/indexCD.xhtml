@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <h:form>
+            <p>please to sign all cels:</p>
+            <table>
+                <tr>
+                    <td>name?:</td>      
+                    <td><h:outputText id="outputName" value="#{user.name}"/></td> 
+
+                </tr>
+                <tr>
+                    <td>second name?:   </td>
+                    <td><h:outputText id="outputSName" value="#{user.nname}"/></td> 
+
+                </tr>
+                <td>
+                    <td>em@il?:</td>    
+                    <td><h:outputText id="outputEmail" value="#{user.email}"/></td> 
+
+                </td>
+                <tr>
+                    <td>login?:</td>    
+                    <td><h:outputText id="outputLogin" value="#{user.login}"/></td> 
+
+                </tr>
+
+               
+
+                <tr>
+                    <td>sex?:</td> <td><h:outputText id="outputSex" value="#{user.sex}"/></td>
+                </tr>
+
+
+                <tr>
+                    <td>few words about US</td><td> <h:outputText id="inputfwaus" value="#{user.fwaus}"/> </td>        
+                </tr>
+            </table>
+
+
+
+
+        </h:form>
+    </h:body>
+</html>
