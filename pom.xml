@@ -19,6 +19,12 @@
             <version>2.1.7</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <version>1.0.0.Final</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

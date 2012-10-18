@@ -5,17 +5,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.util.logging.Logger;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
+@SessionScoped
 public class Bean {
 // ------------------------------ FIELDS ------------------------------
 
     private static Logger LOGGER = Logger.getLogger(Bean.class.getCanonicalName());
 
     private boolean formVisible = true;
-
-    @ManagedProperty("#{loggingBean}")
-    private LoggingBean loggingBean;
+    private boolean isLogged = false;
 
     private String name;
 
@@ -25,7 +26,7 @@ public class Bean {
     {
         final String msg = "getName:" + name;
         LOGGER.info(msg);
-        loggingBean.info(msg);
+
         return name;
     }
 
@@ -33,7 +34,7 @@ public class Bean {
     {
         final String msg = "setName:" + name;
         LOGGER.info(msg);
-        loggingBean.info(msg);
+
         this.name = name;
     }
 
@@ -41,7 +42,7 @@ public class Bean {
     {
         final String msg = "isFormVisible: " + formVisible;
         LOGGER.info(msg);
-        loggingBean.info(msg);
+
         return formVisible;
     }
 
@@ -49,22 +50,38 @@ public class Bean {
     {
         final String msg = "setFormVisible: " + formVisible;
         LOGGER.info(msg);
-        loggingBean.info(msg);
+       
         this.formVisible = formVisible;
     }
 
-    public void setLoggingBean(LoggingBean loggingBean)
-    {
-        this.loggingBean = loggingBean;
-    }
+    
 
 // -------------------------- OTHER METHODS --------------------------
 
     public void sayHi()
     {
+        isLogged=true;
         final String msg = "sayHi:" + name;
         LOGGER.info(msg);
-        loggingBean.info(msg);
+    
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hi " + name));
     }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static void setLOGGER(Logger LOGGER) {
+        Bean.LOGGER = LOGGER;
+    }
+
+    public boolean isIsLogged() {
+        return isLogged;
+    }
+
+    public void setIsLogged(boolean isLogged) {
+        this.isLogged = isLogged;
+    }
+    
+    
 }
