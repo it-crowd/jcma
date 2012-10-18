@@ -1,10 +1,10 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" template="/template.xhtml">
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="contentForm">
             <rich:panel>
                 <f:facet name="header">Registration form</f:facet>
                 <h:panelGrid columns="3">
@@ -46,7 +46,9 @@
 
                     <h:outputText/>
                     <h:commandButton value="Register" action="#{registrationView.register}"/>
-                    <h:commandButton value="Cancel" action="#{registrationView.cancel}" immediate="true"/>
+                    <h:commandButton value="Cancel">
+                        <rich:componentControl target="popup" operation="show" />
+                    </h:commandButton>
                 </h:panelGrid>
 
                 <a4j:outputPanel ajaxRendered="true">
@@ -60,6 +62,20 @@
                         <h:outputText value="country"/>
                         <h:outputText value="#{registrationView.user.country.name}"/>
                     </h:panelGrid>
+
+                    <rich:popupPanel id="popup" modal="false" minWidth="300" minHeight="300" resizeable="false">
+                        <f:facet name="header">
+                            <h:outputText value="Czy napewno anulowac?" />
+                        </f:facet>
+                        <a4j:commandButton id="popupActionButton" value="Save" onclick="document.getElementById('contentForm').submit(); return false;"/>
+
+                        <h:commandButton value="Don't save!">
+                            <rich:componentControl target="popup" operation="hide" />
+                        </h:commandButton>
+
+
+                    </rich:popupPanel>
+
                 </a4j:outputPanel>
             </rich:panel>
         </h:form>
