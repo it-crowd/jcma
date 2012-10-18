@@ -10,7 +10,9 @@
 
         <h1>tableToSort</h1>
         <h:form>
-            <h:dataTable value="#{order.orderList}" var="o"
+            <h:inputText id="inputqwerty" value="#{order.qwerty}" ></h:inputText>
+            <h:commandButton id="submmitqwerty" value="try to find" action="index" /> 
+            <h:dataTable value="#{order.sortByQwerty()}" var="o"
                          styleClass="order-table"
                          headerClass="order-table-header"
                          rowClasses="order-table-odd-row,order-table-even-row"

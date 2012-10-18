@@ -4,8 +4,6 @@
  */
 package table;
 
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,21 +20,52 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class table {
 
-    private static final long serialVersionUID = 1L;
+    private String qwerty;
     private List<Order> orderArrayList;
     private boolean sortAscending = true;
-    private static final Order[] orderList = {
+    private Order[] orderList = {
         new Order("id02", "item1", 500.00, 6),
-        new Order("id01", "item2", 1000.00, 66), 
-        new Order("id04", "item3",1500.00, 666), 
-        new Order("id03", "item4",2000.00, 5),
-        new Order("id05", "item4",2500.00, 1)
+        new Order("id01", "item2", 1000.00, 66),
+        new Order("id04", "item3", 1500.00, 666),
+        new Order("id03", "item4", 2000.00, 5),
+        new Order("id05", "item4", 2500.00, 1)
     };
+    ////////////////////////////////////////////////////poligon/////
+    private List<Order> orderArrayList1;
 
+    /**
+     *
+     * @return
+     */
+    public List<Order> sortByQwerty() {
+        orderArrayList1 = new ArrayList<Order>();
+        if ( qwerty == null || qwerty.isEmpty()) {
+            for (int i = 0; i < getOrderList().size(); i++) {
+                orderArrayList1.add(getOrderList().get(i));
+            }
+        } else {
+            for (int i = 0; i < getOrderList().size(); i++) {
+                if (getOrderList().get(i).getProductName().contains(qwerty)) {
+                    orderArrayList1.add(getOrderList().get(i));
+                }
+            }
+        }
+        return orderArrayList1;
+    }
+
+//////////////////////////////////////poligon//////////////////////
     public table() {
 
         orderArrayList = new ArrayList<Order>(Arrays.asList(orderList));
 
+    }
+
+    public String getQwerty() {
+        return qwerty;
+    }
+
+    public void setQwerty(String qwerty) {
+        this.qwerty = qwerty;
     }
 
     public List<Order> getOrderList() {
@@ -51,7 +80,6 @@ public class table {
 
 
             Collections.sort(orderArrayList, new Comparator<Order>() {
-
                 @Override
                 public int compare(Order o1, Order o2) {
 
@@ -65,7 +93,6 @@ public class table {
 
 
             Collections.sort(orderArrayList, new Comparator<Order>() {
-
                 @Override
                 public int compare(Order o1, Order o2) {
 
