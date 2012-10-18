@@ -1,5 +1,5 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" template="/template.xhtml">
 
@@ -7,8 +7,7 @@
         <h:form>
             <rich:panel>
                 <f:facet name="header">Registration form</f:facet>
-                <h:panelGrid columns="3">
-
+                <h:panelGrid columns="3" id="regMe">
                     <h:outputLabel value="email" for="email"/>
                     <h:inputText id="email" value="#{registrationView.user.email}">
                         <a4j:ajax render="emailMessage"/>
@@ -17,7 +16,7 @@
 
                     <h:outputLabel value="birth date (yyyy-MM-dd)" for="birthDate"/>
                     <rich:calendar id="birthDate" value="#{registrationView.user.birthDate}" enableManualInput="true" datePattern="yyyy-MM-dd">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        <!--<f:convertDateTime pattern="yyyy-MM-dd"/>-->
                         <a4j:ajax render="birthDateMessage"/>
                     </rich:calendar>
                     <rich:message id="birthDateMessage" for="birthDate" ajaxRendered="false"/>
@@ -45,9 +44,20 @@
                     <rich:message id="countryMessage" for="country" ajaxRendered="false"/>
 
                     <h:outputText/>
-                    <h:commandButton value="Register" action="#{registrationView.register}"/>
-                    <h:commandButton value="Cancel" action="#{registrationView.cancel}" immediate="true"/>
+                    <a4j:commandButton value="Register" action="#{registrationView.register}" render="regMe"/>
+                    <a4j:commandButton value="Cancel" actionListener="#{registrationView.cancel}" immediate="true" render="saveChanges"/>
                 </h:panelGrid>
+
+
+                <rich:popupPanel id="saveChanges" minWidth="320" minHeight="240" moveable="true" resizeable="true" show="#{registrationView.confirmationPanelVisible}" >
+                    <f:facet name="title">what U want to do?</f:facet>
+                    <a4j:commandButton value="save" actionListener="#{registrationView.register()}" render="regMe" oncomplete="#{rich:component('saveChanges')}.hide();"/>
+                    <a4j:commandButton value="do not save" actionListener="#{registrationView.proceedWithoutSave()}" render="saveChanges" oncomplete="#{rich:component('saveChanges')}.hide();"/>
+                    <a href="#" onclick="#{rich:component('saveChanges')}.hide();" >hide me</a>
+                </rich:popupPanel>
+
+
+
 
                 <a4j:outputPanel ajaxRendered="true">
                     <h:panelGrid id="preview" columns="2">
