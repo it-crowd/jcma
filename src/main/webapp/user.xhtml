@@ -3,17 +3,13 @@
 
     <ui:define name="content">
 
-        <h1><h:outputText id="response" value="#{loginView.response}"/>
-        </h1>
-        <ui:include src="#{loginView.include}"/>
-
+        <h:form>
+            <rich:panel>
+                <f:facet name="header">User form</f:facet>
+                <h:commandButton value="Logout" action="#{loginView.login}"/>
+            </rich:panel>
+        </h:form>
 
     </ui:define>
 
 </ui:composition>
-
-
-
-
-
-

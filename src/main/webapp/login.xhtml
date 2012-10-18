@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" template="/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form>
+            <a4j:queue requestDelay="500"/>
+            <rich:panel styleClass="panelMain">
+                <f:facet name="header">Login form</f:facet>
+                <h:panelGrid columns="3">
+
+                    <h:outputLabel value="userName" for="userName"/>
+                    <h:inputText id="userName" value="#{loginView.userName}">
+                        <a4j:ajax render="userNameMessage" event="keyup"/>
+                    </h:inputText>
+                    <rich:message id="userNameMessage" for="userName" ajaxRendered="false"/>
+
+                    <h:outputLabel value="password" for="password"/>
+                    <h:inputSecret id="password" value="#{loginView.password}">
+                        <a4j:ajax render="passwordMessage"/>
+                    </h:inputSecret>
+                    <rich:message id="passwordMessage" for="password" ajaxRendered="false"/>
+
+                    <h:commandButton value="Login" action="#{loginView.login}"/>
+                    <h:form>
+                        <h:link value="Register" outcome="register"/>
+                    </h:form>
+                </h:panelGrid>
+                <h1>login: admin</h1>
+                <h1>pass: admin</h1>
+            </rich:panel>
+        </h:form>
+
+        <rich:notifyMessages globalOnly="true" showHistory="true" showShadow="true"/>
+    </ui:define>
+
+</ui:composition>

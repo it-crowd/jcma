@@ -1,0 +1,7 @@
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (15, 'pl', 'user@hotmail.com', 'male', 'it', 'user', 'user', 'pass', 'user')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (39, 'us', 'familyguy@fox.tv', 'male', 'cos', 'Griffin', 'Peter', 'hello', 'peter')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (1, 'us', 'familyguy@fox.tv', 'male', 'cos', 'Griffin', 'Stewie', 'hello', 'stewie')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (16, 'us', 'familyguy@fox.tv', 'male', 'cos', 'Griffin', 'Brian', 'hello', 'brian')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (15, 'us', 'familyguy@fox.tv', 'male', 'cos', 'Griffin', 'Chris', 'hello', 'chris')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (14, 'us', 'familyguy@fox.tv', 'female', 'cos', 'Griffin', 'Meg', 'hello', 'meg')
+insert into User (age, country, email, gender, job, lastName, name, passwordDigest, userName) values (35, 'us', 'familyguy@fox.tv', 'female', 'cos', 'Griffin', 'Lois', 'hello', 'lois')

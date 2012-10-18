@@ -1,0 +1,1 @@
+Task 1-4, all in one project, last task I'm going to send you later. I used JSF-006-RichFaces and arq branch. I've tried to work according to art but I could make some mistakes, because I not possessed enough experience, yet!

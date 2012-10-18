@@ -6,3 +6,8 @@
 a {
     color: #000;
 }
+
+.panelMain .rich-panel-body {
+
+    width: 100px;
+}

@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" template="/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+
+            <a4j:queue requestDelay="500"/>
+            <rich:panel styleClass="panelMain">
+                <f:facet name="header">Admin form</f:facet>
+
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText value="Filters"></h:outputText>
+                    </f:facet>
+                    <b>UserName:</b>
+                    <h:inputText id="userName" value="#{loginView.filterUserName}"/>
+                    <b>Name:</b>
+                    <h:inputText id="name" value="#{loginView.filterName}"/>
+                    <b>Last name:</b>
+                    <h:inputText id="lastName" value="#{loginView.filterLastName}"/>
+                    <b>Age: ></b>
+                    <rich:inputNumberSpinner value="#{loginView.filterGreater}" />
+                    <b> and &lt;</b>
+                    <rich:inputNumberSpinner value="#{loginView.filterLess}" step="2" />
+                    <b> Gender: </b>
+                    <rich:select value="#{loginView.filterGender}" selectFirst="true">
+                        <f:selectItems value="#{loginView.genders}" />
+                    </rich:select>
+                </rich:panel>
+                <h:commandButton id="send" action="#{loginView.setFilter}" value="Set filter" render="records"/>
+
+                <rich:dataTable var="_user" value="#{loginView.users}" id="records">
+                    <rich:column>
+                        <f:facet name="header">UserName</f:facet>
+                        #{_user.userName}
+                    </rich:column>
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        #{_user.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">LastName</f:facet>
+                        #{_user.lastName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Age</f:facet>
+                        #{_user.age}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        #{_user.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Country</f:facet>
+                        #{_user.country}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Gender</f:facet>
+                        #{_user.gender}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Job</f:facet>
+                        #{_user.job}
+                    </h:column>
+
+                </rich:dataTable>
+
+                <h:commandButton value="Logout" action="#{loginView.login}"/>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" template="/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+
+            <a4j:queue requestDelay="500"/>
+            <rich:panel styleClass="panelMain">
+                <f:facet name="header">Registration form</f:facet>
+                <h:panelGrid columns="3">
+
+                    <h:outputLabel value="Name:" for="name"/>
+                    <h:inputText id="name" value="#{newUser.name}">
+                        <a4j:ajax render="nameMessage" event="keyup"/>
+                    </h:inputText>
+                    <rich:message id="nameMessage" for="name" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Last name:" for="lastName"/>
+                    <h:inputText id="lastName" value="#{newUser.lastName}">
+                        <a4j:ajax render="lastNameMessage" event="keyup"/>
+                    </h:inputText>
+                    <rich:message id="lastNameMessage" for="lastName" ajaxRendered="false"/>
+
+                    <h:outputLabel value="User name:" for="userName"/>
+                    <h:inputText id="userName" value="#{newUser.userName}">
+                        <a4j:ajax render="userNameMessage" event="keyup"/>
+                    </h:inputText>
+                    <rich:message id="userNameMessage" for="userName" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Password:" for="password"/>
+                    <h:inputSecret id="password" value="#{newUser.password}" redisplay="true">
+                        <a4j:ajax render="passwordMessage"/>
+                    </h:inputSecret>
+                    <rich:message id="passwordMessage" for="password" ajaxRendered="false"/>
+
+                    <h:outputLabel value="ConfirmPassword:" for="confirmPassword"/>
+                    <h:inputSecret id="confirmPassword" value="#{newUser.confirmPassword}" redisplay="true">
+                        <a4j:ajax render="confirmPasswordMessage"/>
+                    </h:inputSecret>
+                    <rich:message id="confirmPasswordMessage" for="confirmPassword" ajaxRendered="false"/>
+
+
+                    <h:outputLabel value="Email:" for="email"/>
+                    <h:inputText id="email" value="#{newUser.email}">
+                        <a4j:ajax render="emailMessage" event="keyup"/>
+                    </h:inputText>
+                    <rich:message id="emailMessage" for="email" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Birth date (yyyy-MM-dd):" for="birthDate"/>
+                    <rich:calendar id="birthDate" value="#{newUser.birthDate}" enableManualInput="true" datePattern="yyyy-MM-dd">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        <a4j:ajax render="birthDateMessage"/>
+                    </rich:calendar>
+                    <rich:message id="birthDateMessage" for="birthDate" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Country:" for="country"/>
+                    <h:selectOneRadio id="country" value="#{newUser.country}">
+                        <a4j:ajax render="countryMessage"/>
+                        <f:selectItems value="#{registrationView.countries}"/>
+                    </h:selectOneRadio>
+                    <rich:message id="countryMessage" for="country" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Gender:" for="gender"/>
+                    <h:selectOneRadio id="gender" value="#{newUser.gender}">
+                        <a4j:ajax render="genderMessage" event="keyup"/>
+                        <f:selectItems value="#{registrationView.genders}"/>
+                    </h:selectOneRadio>
+                    <rich:message id="genderMessage" for="gender" ajaxRendered="false"/>
+
+                    <h:outputLabel value="Jobs:" for="jobs"/>
+                    <h:selectOneListbox id="jobs" value="#{newUser.job}">
+                        <a4j:ajax render="jobsMessage" event="keyup"/>
+                        <f:selectItems value="#{registrationView.jobs}"/>
+                    </h:selectOneListbox>
+                    <rich:message id="jobsMessage" for="jobs" ajaxRendered="false"/>
+
+                    <h:commandButton value="Register" action="#{registrationView.register}"/>
+                    <h:commandButton value="Cancel" action="#{registrationView.cancel}" immediate="true"/>
+
+
+                    <rich:popupPanel id="popup1" modal="true" resizeable="true" onmaskclick="#{rich:component('popup1')}.hide()" show="#{registrationView.popupInfo}">
+                        <f:facet name="header">
+                            <h:outputText value="Registered success!" />
+                        </f:facet>
+                        <f:facet name="controls">
+                            <h:outputLink value="#" onclick="#{rich:component('popup1')}.hide(); return false;">
+                                X
+                            </h:outputLink>
+                        </f:facet>
+                        <p>Thanks for registered!</p>
+
+                    </rich:popupPanel>
+
+                    <rich:popupPanel id="popup2" modal="true" resizeable="true" onmaskclick="#{rich:component('popup2')}.hide()" show="#{registrationView.popupConfirm}">
+                        <f:facet name="header">
+                            <h:outputText value="Are you sure?" />
+                        </f:facet>
+                        <f:facet name="controls">
+                            <h:outputLink value="#" onclick="#{rich:component('popup2')}.hide(); return false;">
+                                X
+                            </h:outputLink>
+                        </f:facet>
+                        <p><h:commandLink value="Cancel" action="#{registrationView.proceedWithoutSave}" immediate="true"/> </p>
+                        <p><h:commandLink value="Register" action="#{registrationView.register}" /> </p>
+                    </rich:popupPanel>
+
+                </h:panelGrid>
+
+                <h:form>
+                    <h:link value="Login" outcome="index"/>
+                </h:form>
+
+            </rich:panel>
+        </h:form>
+
+        <rich:notifyMessages globalOnly="true" showHistory="true" showShadow="true"/>
+    </ui:define>
+</ui:composition>
