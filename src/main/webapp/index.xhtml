@@ -1,12 +1,51 @@
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" template="/template.xhtml">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>	
+    </h:head>
+    <h:body>
 
-    <ui:param name="activeTab" value="index"/>
+        <h1>tableToSort</h1>
+        <h:form>
+            <h:inputText id="inputqwerty" value="#{order.qwerty}" ></h:inputText>
+            <h:commandButton id="submmitqwerty" value="try to find" action="index" /> 
+            <h:dataTable value="#{order.sortByQwerty()}" var="o"
+                         styleClass="order-table"
+                         headerClass="order-table-header"
+                         rowClasses="order-table-odd-row,order-table-even-row"
+                         >
 
-    <ui:define name="content">
-        <h1>Hi this is index page</h1>
-        <ui:include src="loginPanelFragment.xhtml"/>
-    </ui:define>
+                <h:column>
+                    <f:facet name="header">
+                        <h:commandLink action="#{order.sortByOrderNo}">
+                            idNumberOfItem
+                        </h:commandLink>
+                    </f:facet>
+                    #{o.idNum}
+                </h:column>
 
-</ui:composition>
+                <h:column>
+                    <f:facet name="header">
+                        itemName
+                    </f:facet>
+                    #{o.productName}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    #{o.price}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">howMany</f:facet>
+                    #{o.howMany}
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
