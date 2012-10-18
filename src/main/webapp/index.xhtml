@@ -1,12 +1,52 @@
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" template="/template.xhtml">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:param name="activeTab" value="index"/>
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p>Podaj swoje dane: </p>
+            <table>
+                <tr>
+                    <td>Imie :</td>     
+                    <td> <h:inputText id="inputImie" value="#{user.imie}" size="20"/>  </td>    
+                </tr>
 
-    <ui:define name="content">
-        <h1>Hi this is index page</h1>
-        <ui:include src="loginPanelFragment.xhtml"/>
-    </ui:define>
+                <tr>
+                    <td>Nazwisko :</td>     
+                    <td> <h:inputText id="inputNazwisko" value="#{user.nazwisko}" size="20"/>  </td>    
+                </tr>
 
-</ui:composition>
+                <tr>
+                    <td>Login :</td>     
+                    <td> <h:inputText id="inputLogin" value="#{user.login}" size="20"/>  </td>    
+                </tr>
+
+                <tr>
+                    <td>Plec :</td>
+                    <td><h:selectOneRadio id="radioPlec" value="#{user.plec}"> 
+                            <f:selectItem itemLabel="kobieta" itemValue="kobieta"/>
+                            <f:selectItem itemLabel="mezczyzna" itemValue="mezczyzna"/> 
+                        </h:selectOneRadio> </td>
+                </tr>
+                
+                <tr>
+                    <td>Twoje hobby :</td>
+                    <td><h:selectOneMenu id="inputHobby" value="#{user.hobby}"> 
+                            <f:selectItem itemLabel="Motoryzacja" itemValue="Motoryzacja"/>
+                            <f:selectItem itemLabel="Sport" itemValue="Sport"/> 
+                            <f:selectItem itemLabel="Filmy" itemValue="Filmy"/> 
+
+                        </h:selectOneMenu> </td>
+
+                </tr>
+            </table>
+            <h:commandButton id="button" value="Przesli dane" action="/form"/>
+
+        </h:form>
+    </h:body>
+</html>

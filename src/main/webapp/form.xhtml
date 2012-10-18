@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p>Twoje dane to : </p>
+            <table>
+                <tr>
+                    <td>Imie :</td>     
+                    <td> <h:outputText id="outputImie" value="#{user.imie}" size="20"/>  </td>    
+                </tr>
+                
+                <tr>
+                    <td>Nazwisko :</td>     
+                    <td> <h:outputText id="outputNazwisko" value="#{user.nazwisko}" size="20"/>  </td>    
+                </tr>
+                
+                <tr>
+                    <td>Login :</td>     
+                    <td> <h:outputText id="outputLogin" value="#{user.login}" size="20"/>  </td>    
+                </tr>
+                
+                <tr>
+                    <td>Plec :</td>     
+                    <td> <h:outputText id="outputPlec" value="#{user.plec}" size="20"/>  </td>    
+                </tr>
+                
+                <tr>
+                    <td>Hobby :</td>     
+                    <td> <h:outputText id="outputHobby" value="#{user.hobby}" size="20"/>  </td>    
+                </tr>
+            </table>
+            <h:commandButton id="button" value="Podaj dane jeszcze raz" action="/index"/>
+
+        </h:form>
+    </h:body>
+</html>
