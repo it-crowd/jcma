@@ -7,9 +7,10 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 </head>
 <body>
+
 <div id="posts"></div>
 <hr/>
-<form id="addPost">
+<form id="controls">
     <label for="title">Title</label>
     <br/>
     <input type="text" name="title" id="title"/>
@@ -19,14 +20,39 @@
     <textarea name="content" id="content"></textarea>
     <br/>
     <input type="button" id="add" value="Add"/>
+    <br/> <br/>
+    <div id="cntr"></div>
+    <br/>
+    <label for="from">From</label>
+    <input type="text" name="from" id="from"/>
+    <br/>
+    <label for="number">Number</label>
+    <input type="text" name="number" id="number"/>
+    <br/>
+    <label id="counter" va></label>
+    <input type="button" id="refresh" value="Refresh"/>
+
 </form>
 <script type="text/javascript">
+    var counter = 5;
+
+    function loadCounter(data)
+    {
+        counter = data;
+        var cntr = jQuery("#cntr");
+        cntr.empty();
+        cntr.append("Counter(<b>"+counter+"</b>)");
+    }
     function removePost(id)
     {
         jQuery.ajax("api/post/" + id, {complete:reloadPosts, type:"DELETE"});
     }
+    function showAlert(msg) {
+        alert(msg);
+    }
     function loadPosts(data)
     {
+        reloadCounter();
         var posts = jQuery("#posts");
         posts.empty();
         for (var i = 0; i < data.length; i++) {
@@ -37,26 +63,60 @@
             posts.append(post);
         }
     }
-    function reloadPosts()
+    function reloadPosts(show)
     {
-        jQuery.ajax("api/post/list?responseType=application/json-in-script&methodName=loadPosts", {complete:function (xhr, status)
+        reloadCounter();
+        var form = jQuery("form#controls");
+        var from = jQuery("#from", form).val();
+        var number = jQuery("#number", form).val();
+        if ((number == "" || from == "") && show)
+        {
+            showAlert("Error! Field 'From' or 'Number' is empty!");
+        }
+        else
+        {
+            if ((isNaN(number) || isNaN(from)) && show)
+            {
+                showAlert("Error! Field 'From' or 'Number' is not a number!");
+            }
+            else
+            {
+                jQuery.ajax("api/post/range/"+from+"/"+number+"?responseType=application/json-in-script&methodName=loadPosts", {complete:function (xhr, status)
+                {
+                    if (status != "error") {
+                        eval(xhr.responseText);
+                    }
+                }});
+            }
+        }
+    }
+    function reloadCounter()
+    {
+        jQuery.ajax("api/post/count?responseType=application/json-in-script&methodName=loadCounter", {complete:function (xhr, status)
         {
             if (status != "error") {
                 eval(xhr.responseText);
             }
         }});
-    }//    Setup
+    }
     jQuery(function ()
     {
-        var form = jQuery("form#addPost");
+        var form = jQuery("form#controls");
+        jQuery("#refresh", form).click(function ()
+        {
+            reloadPosts(true);
+        });
+
         jQuery("#add", form).click(function ()
         {
             var title = jQuery("#title", form).val();
             var content = jQuery("#content", form).val();
-            jQuery.ajax("api/post/add", {complete:reloadPosts, data:{title:title, content:content}});
+            jQuery.ajax("api/post/add", {complete:reloadPosts(false), data:{title:title, content:content}});
+            reloadCounter();
         });
+
     });
 </script>
-<script type="text/javascript" src="api/post/list?responseType=application/json-in-script&methodName=loadPosts"></script>
+<script type="text/javascript" src="api/post/range/0/100?responseType=application/json-in-script&methodName=loadPosts"></script>
 </body>
 </html>

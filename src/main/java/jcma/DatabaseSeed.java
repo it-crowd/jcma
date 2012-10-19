@@ -24,7 +24,7 @@ public class DatabaseSeed {
     {
         final User author = new User("john@doe.com", "John", "Doe");
         entityManager.persist(author);
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 5; i++) {
             entityManager.persist(new Post(author, "Content #" + i, "Post title #" + i));
         }
     }
