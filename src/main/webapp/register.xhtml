@@ -1,0 +1,45 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Imie" for="imie"/>
+            <h:inputText id="imie" value="#{bean.imie}"/>
+            <h:outputLabel value="Nazwisko" for="nazwisko"/>
+            <h:inputText id="nazwisko" value="#{bean.nazwisko}"/>
+            <h:outputLabel value="Email" for="email"/>
+            <h:inputText id="email" value="#{bean.email}"/>
+            <h:outputLabel value="Login" for="login"/>
+            <h:inputText id="login" value="#{bean.login}"/>
+            <h:outputLabel value="Haslo" for="haslo"/>
+            <h:inputSecret id="haslo" value="#{bean.haslo}"/>
+            <h:outputLabel value="Plec" for="plec"/>
+            <h:selectOneRadio id="plec" value="#{bean.plec}">  
+                <f:selectItems value="#{bean.plecLista}"/>  
+            </h:selectOneRadio>
+            <h:outputLabel value="Panstwo" for="panstwo"/>
+            <h:selectOneListbox id="panstwo" value="#{bean.panstwo}">
+                <f:selectItems value="#{bean.panstwoLista}"/>
+            </h:selectOneListbox>
+            <h:commandButton value="Zarejestruj" action="#{bean.zarejestruj()}"/>
+            <br/> <br/>
+            <h:outputLabel value="#{bean.imie}"/>
+            <br/>
+            <h:outputLabel value="#{bean.nazwisko}"/>
+            <br/>
+            <h:outputLabel value="#{bean.email}"/>
+            <br/>
+            <h:outputLabel value="#{bean.login}"/>
+            <br/>
+            <h:outputLabel value="#{bean.haslo}"/>
+            <br/>
+            <h:outputLabel value="#{bean.plec}"/>
+            <br/>
+            <h:outputLabel value="#{bean.panstwo}"/>
+            <br/>
+            <h:outputLabel value="#{bean.wiadomosc}"/>
+
+        </h:panelGrid>
+        
+    </h:form>
+
+</ui:component>
